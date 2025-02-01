@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iA</title>
+
+<style>
+  body{
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items:  center;
+    min-height:  100vh;
+    background-color: #6b4b4b;
+    margin: 0;
+  }
+  .chat-container{
+    background-color: #ffff;
+    width: 90%;
+    max-width: 500px;
+    box-shadow:  0 4px 8px rgb(0, 0, 0,0.1);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .chat-header{
+    background-color: #e74c3c;
+    padding: 10px 15px;
+    color: white;
+    text-align: center;
+  }
+  .chat-body{
+    padding: 15px;
+    height: 300px;
+    overflow-y: auto;
+    background-color: #fafafa;
+  }
+.chat-message{
+  margin-bottom: 10px;
+  padding:  8px 12px;
+  border-radius: 8px;
+  max-width: 80%;
+}
+.user-message{
+  background-color:  #d1f7c4;
+  align-self: flex-end;
+}
+.bot-message{
+  background-color: #f1f1f1;
+  align-self: flex-start;
+}
+.chat-footer{
+ display: flex;
+ border-top:  1px solid #ddd;
+}
+.chat-input{
+  flex:  1;
+  padding: 10px;
+  border: none;
+  outline: none;
+}
+.send-button{
+  background-color: #e74c3c;
+  color: white;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+}
+.send-button:hover{
+  background-color: #c0392b;
+}
+
+</style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">IA</div>
+    <div class="chat-body" id="chat-body"></div>
+    <div class="chat-footer">
+      <input type="text" id="user-input" class="chat-input" placeholder="Tapez un message...">
+      <button class="send-button" onclick="sendMessage()">Envoyer</button>
+    </div>
+  </div>
+  <script>
+    const chatBody =  document.getElementById('chat-body')
+    const userInput = document.getElementById('user-input')
+
+    function addMessage(text, sender){
+      const message = document.createElement('div')
+      message.classList.add('chat-message', sender === 'user ' ? 'user-message': 'bot-message')
+      message.textContent=text;
+      chatBody.appendChild(message);
+      chatBody.scrollTop = chatBody.scrollHeight
+    }
+
+    function sendMessage() {
+      const text = userInput.value.trim()
+      if (!text) return;
+
+      addMessage(text, 'user');
+      userInput.value ='';
+      setTimeout(() => generateBotResponse(text),500)
+    }
+    function generateBotResponse(text){
+      const responses ={
+        bonjour : " Coucou , comment ca va?",
+        merci : " De rien c'est normal",
+        salut : "salut, ça va?",
+        hey :" coucou toi tu vas bien? "
+    
+     
+      
+
+      }
+      const lowerText = text.toLowerCase()
+      const response = responses[lowerText] || "Désolé , je ne comprend pas ta quetion"
+      addMessage (response, 'bot')
+    }
+
+    userInput.addEventListener('keypress', function (event){
+      if (event.key === 'Enter'){
+        sendMessage();
+      }
+    })
+  </script>
+</body>
+</html>
