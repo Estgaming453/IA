@@ -17,13 +17,14 @@
   }
   .chat-container{
     background-color: #ffff;
-    width: 90%;
-    max-width: 500px;
+    width: 100%;
+    max-width: 800px;
     box-shadow:  0 4px 8px rgb(0, 0, 0,0.1);
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    border-radius: 100px;
   }
   .chat-header{
     background-color: #e74c3c;
@@ -42,6 +43,7 @@
   padding:  8px 12px;
   border-radius: 8px;
   max-width: 80%;
+  
 }
 .user-message{
   background-color:  #d1f7c4;
@@ -51,9 +53,14 @@
   background-color: #f1f1f1;
   align-self: flex-start;
 }
-.chat-footer{
+.chat-footer,.file-section{
  display: flex;
  border-top:  1px solid #ddd;
+ display: flex;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-top: 1px solid #ddd;
+  gap : 10px;
 }
 .chat-input{
   flex:  1;
@@ -74,6 +81,13 @@
 .send-button:hover{
   background-color: #c0392b;
 }
+ 
+
+
+.file-input, .audio-record {
+  flex: 1;
+}
+
 
 </style>
 </head>
@@ -82,10 +96,17 @@
     <div class="chat-header">IA</div>
     <div class="chat-body" id="chat-body"></div>
     <div class="chat-footer">
+     
       <input type="text" id="user-input" class="chat-input" placeholder="Tapez un message...">
+      <input type="file" class="file-input" id="file-input"> </div>
       <button class="send-button" onclick="sendMessage()">Envoyer</button>
-    </div>
+      <div class="file-section">
+       
+
+    
   </div>
+  
+
   <script>
     const chatBody =  document.getElementById('chat-body')
     const userInput = document.getElementById('user-input')
@@ -126,11 +147,13 @@
           'tu as quel age ' :"je n'ai pas d'age",
           'tu as quel age?' :"je n'ai pas d'age",
           'coucou' : " salutt comment ça va?",
-          'coucouuu': " salut tu vas bien ? et ta journée se passe bien?"
-     
+          'coucouuu': " salut tu vas bien ? et ta journée se passe bien?",
+          'je veux de l\'aide': "voici mon mail : est.gaming453@gmail.com",
+          'help' :"voici mon mail : est.gaming453@gmail.com"
       
 
       }
+      
       const lowerText = text.toLowerCase()
       const response = responses[lowerText] || "Désolé , je ne comprend pas ta quetion"
       addMessage (response, 'bot')
